@@ -3,7 +3,7 @@ import { getColor } from "../utils"
 
 
 
-export const Tree = ({value, cx, cy, r, step}) => {
+export const Tree = ({value, cx, cy, r, step, chartX, chartY}) => {
   const isSecondStep = step === 1;
   const animate = isSecondStep ? 'histogram' : 'grid';
   const color = getColor(value);
@@ -14,8 +14,8 @@ export const Tree = ({value, cx, cy, r, step}) => {
         y:0,
       },
     histogram: {
-      x:value*value / 100, 
-      y:value*value/100
+      x:60,
+      y:0,
     }
   }
 
@@ -24,7 +24,6 @@ export const Tree = ({value, cx, cy, r, step}) => {
     cy={cy} 
     r={r} 
     fill={color}
-    whileHover={{scale:step}}
     variants = {variants}
     initial= "grid"
     animate= {animate} 

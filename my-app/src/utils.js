@@ -1,24 +1,34 @@
 import {scaleLinear} from 'd3-scale';
+import {bin} from 'd3-array';
 import { distance } from 'framer-motion';
 
 const ColorScale = require("color-scales");
 
 // Distribution settings
-const distribution = {
+export const DISTRIBUTION = {
   min: 120,
   max: 180,
   mean: 150,
   stdev: 10,
-  count: 576
+  count: 576,
+  thresholds: 5
 }
 
 // Color settings
-const colorMinValue = distribution.min;
-const colorMaxValue = distribution.max;
+const colorMinValue = DISTRIBUTION.min;
+const colorMaxValue = DISTRIBUTION.max;
 const colorMin = "#CAFF90";
 const colorMax = "#345511";
 const colorAlpha = 1;
 
+
+// TreeGroup Parameters
+export const TREEGROUP = {
+  smallSide: 6,
+  fullSide: 24,
+  distance: 13,
+  r: 5
+}
 
 //axis settings
 // const xAxisMin = distribution.min;
@@ -26,14 +36,6 @@ const colorAlpha = 1;
 
 let colorScale = new ColorScale(colorMinValue, colorMaxValue, [colorMin, colorMax], colorAlpha); // red to green from 0 to 100
 
-
-export function getGridX(elemIndex, distance, sideLength){
-  return (elemIndex % sideLength + 1) * distance;
-}
-
-export function getGridY(elemIndex, distance, sideLength){
-  return (parseInt(elemIndex/sideLength) + 1) * distance
-}
 
 export function getColor(value){
   return colorScale.getColor(value).toHexString()
@@ -47,48 +49,76 @@ function gaussianRandom(mean, stdev) {
 }
 
 export function getRandomValue(){
-  return gaussianRandom(distribution.mean, distribution.stdev)
+  return gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev)
 }
 
 export function generateData(countData) {
   const result = [];
   for (let  i = 0; i < countData; i++){
 
-    const value = gaussianRandom(distribution.mean, distribution.stdev);
+    const value = gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev);
+    
     result.push(
         new TreeObject(
           i,
           value,
           getColor(value),
-          value,
-          value,
-          value,
-          value,
-          6 
+          TREEGROUP.distance,
+          TREEGROUP.r 
         ))
   }
   return result;
 }
 
-function getGridX2(elemIndex, distance, smallSideLength, fullSideLength){
-  return ((elemIndex + parseInt(elemIndex/smallSideLength)) % fullSideLength + 1 ) * distance;
+function getGridX(elemIndex, distance, smallSideLength, fullSideLength){
+  const shift = parseInt(elemIndex/smallSideLength) % (fullSideLength / smallSideLength);
+  return ((elemIndex % fullSideLength + shift)+ 1) * distance;
 }
 
-function getGridY2(elemIndex, distance, smallSideLength, fullSideLength){
-
-  return (parseInt(elemIndex/fullSideLength) % smallSideLength + 1) * distance
+function getGridY(elemIndex, distance, smallSideLength, fullSideLength){
+  const shift = parseInt(elemIndex/(smallSideLength * fullSideLength)) + 1
+  return (parseInt(elemIndex/fullSideLength) + shift ) * distance
 }
-
-function TreeObject(elemIndex, value, color, initX, initY, chartX, chartY, distance) {
+// 
+function TreeObject(elemIndex, value, color, distance,r) {
   this.elemIndex = elemIndex;
   this.value = value;
   this.color = color;
-  this.initX = getGridX2(elemIndex, distance, 6, 36);
-  this.initY = getGridY2(elemIndex, distance, 6, 36);;
-  this.chartX = chartX;
-  this.chartY = chartY;
+  this.initX = getGridX(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide);
+  this.initY = getGridY(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide);;
+  this.chartX = this.initX;
+  this.chartY = this.initY;
+  // this.bin = bin
+  this.r = r;
 }
 
+export function addBins(data) {
+  const values = data.map(elem => elem.value)
+  
+  let binGenerator = bin()
+  .domain([DISTRIBUTION.min,DISTRIBUTION.max])   
+  .thresholds(DISTRIBUTION.thresholds)
+  
+  const bins = binGenerator(values) 
+  
+  data.forEach((element, i) => {
+    const value = element.value;
+    
+    let binIndex, elemIndex
+    bins.forEach((bin, i) => {
+      const foundIndex = bin.indexOf(value);
+      if (foundIndex === -1) return
+      binIndex = i;
+      elemIndex = foundIndex;  
+   });
+
+   // заполнить данные 
+   data[i].chartX = binIndex * 10;
+   data[i].chartY = elemIndex * 5;
+  });
+
+  console.log(data)
+}
 
 // export function getChartCoordinates(){
 //   let x = scaleLinear()
