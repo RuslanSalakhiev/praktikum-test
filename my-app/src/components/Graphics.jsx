@@ -1,5 +1,5 @@
 
-import { SvgGroup } from "./SvgGroup";
+import { SvgGroup } from "./SVG/SvgGroup";
 
 export const Graphics = ({step, nextStep, firstStep}) => {
   return <>

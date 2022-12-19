@@ -4,7 +4,7 @@ import { Slideshow } from "./components/Slideshow";
 const App = () => {
   return (
     <div>
-        <Slideshow median={150} sigma={10}/>
+        <Slideshow/>
     </div>
   )
 }

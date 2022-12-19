@@ -1,4 +1,3 @@
-import {scaleLinear} from 'd3-scale';
 import {bin} from 'd3-array';
 import { distance } from 'framer-motion';
 
@@ -11,24 +10,47 @@ export const DISTRIBUTION = {
   mean: 150,
   stdev: 10,
   count: 576,
-  thresholds: 5
+  thresholds: 60
 }
 
 // Color settings
 const colorMinValue = DISTRIBUTION.min;
 const colorMaxValue = DISTRIBUTION.max;
-const colorMin = "#CAFF90";
-const colorMax = "#345511";
+const colorMin = "#D9FFC9";//"#CAFF90";
+const colorMax = "#269624";//"#345511";
 const colorAlpha = 1;
+
+
+
+const SVGParams = {
+  width: 700,
+  height: 400,
+  smallSide: 6,
+  fullSide: 24,
+  distanceGrid: 13,
+  columnDistanceChart: 10,
+  treeDistanceChart: 10,
+  r: 5,
+
+}
 
 
 // TreeGroup Parameters
 export const TREEGROUP = {
+  width: 700,
+  height: 400,
   smallSide: 6,
   fullSide: 24,
-  distance: 13,
-  r: 5
+  distanceGrid: 13,
+  columnDistanceChart: 10,
+  treeDistanceChart: 10,
+  r: 5,
+  gridMarginSide: (SVGParams.width - (SVGParams.fullSide +3) * SVGParams.r  * 2 - SVGParams.distanceGrid * (SVGParams.fullSide / SVGParams.smallSide +1))/2,
+  gridMarginBottom: 10,
+  chartMarginSide: 40,
+  chartMarginBottom: 50,
 }
+
 
 //axis settings
 // const xAxisMin = distribution.min;
@@ -63,33 +85,41 @@ export function generateData(countData) {
           i,
           value,
           getColor(value),
-          TREEGROUP.distance,
+          TREEGROUP.distanceGrid,
           TREEGROUP.r 
         ))
   }
   return result;
 }
 
-function getGridX(elemIndex, distance, smallSideLength, fullSideLength){
+function getGridX(elemIndex, distance, smallSideLength, fullSideLength, margin){
   const shift = parseInt(elemIndex/smallSideLength) % (fullSideLength / smallSideLength);
-  return ((elemIndex % fullSideLength + shift)+ 1) * distance;
+  console.log(((elemIndex % fullSideLength + shift)) * distance + margin, elemIndex, distance, smallSideLength, fullSideLength, margin)
+  return ((elemIndex % fullSideLength + shift)) * distance + margin;
 }
 
-function getGridY(elemIndex, distance, smallSideLength, fullSideLength){
+function getGridY(elemIndex, distance, smallSideLength, fullSideLength, margin){
   const shift = parseInt(elemIndex/(smallSideLength * fullSideLength)) + 1
-  return (parseInt(elemIndex/fullSideLength) + shift ) * distance
+  return (parseInt(elemIndex/fullSideLength) + shift ) * distance + margin
 }
-// 
+
+// Объект дерево
 function TreeObject(elemIndex, value, color, distance,r) {
   this.elemIndex = elemIndex;
   this.value = value;
   this.color = color;
-  this.initX = getGridX(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide);
-  this.initY = getGridY(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide);;
+  this.initX = getGridX(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide, TREEGROUP.gridMarginSide);
+  this.initY = getGridY(elemIndex, distance, TREEGROUP.smallSide, TREEGROUP.fullSide, TREEGROUP.gridMarginBottom);;
   this.chartX = this.initX;
   this.chartY = this.initY;
-  // this.bin = bin
   this.r = r;
+}
+
+
+
+
+function getCoordinatesShift(axis, startCoord, endCoord, height = null, margin){
+  return axis === 'x' ?  endCoord - startCoord : height - endCoord - startCoord - margin;
 }
 
 export function addBins(data) {
@@ -103,21 +133,29 @@ export function addBins(data) {
   
   data.forEach((element, i) => {
     const value = element.value;
-    
+    const initX = element.initX;
+    const initY = element.initY;
+
     let binIndex, elemIndex
     bins.forEach((bin, i) => {
       const foundIndex = bin.indexOf(value);
       if (foundIndex === -1) return
-      binIndex = i;
-      elemIndex = foundIndex;  
+      binIndex = i + 1;
+      elemIndex = foundIndex; 
+      
    });
+   
+   data[i].chartX = getCoordinatesShift('x',initX, binIndex * TREEGROUP.columnDistanceChart + TREEGROUP.chartMarginSide ,TREEGROUP.height, TREEGROUP.chartMarginSide) ;
+   data[i].chartY = getCoordinatesShift('y',initY, elemIndex * TREEGROUP.treeDistanceChart, TREEGROUP.height, TREEGROUP.chartMarginBottom) ;
+
 
    // заполнить данные 
-   data[i].chartX = binIndex * 10;
-   data[i].chartY = elemIndex * 5;
+  
+   
+  //  return data
   });
 
-  console.log(data)
+
 }
 
 // export function getChartCoordinates(){

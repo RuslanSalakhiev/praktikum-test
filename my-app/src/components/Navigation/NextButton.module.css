@@ -1,0 +1,22 @@
+.NextButton {
+  display: flex;
+  justify-content: center;
+  padding: 13px 24px;
+  font-size: var(--typography-size-s-font-size);
+  line-height: var(--typography-size-s-line-height);
+  font-weight: var(--typography-size-s-font-weight);
+  color: var(--white-color);
+  background-color: var(--black-color);
+  border: 0;
+  outline: none;
+  border-radius: var(--border-radius);
+  cursor: default;
+  transition: cursor .15s ease-out,background-color .15s ease-out;
+  width: 180px;
+}
+
+.NextButton:hover{
+  cursor:pointer;
+  background-color:var(--bright-blue-color);
+  transition:background-color .15s ease-out
+}

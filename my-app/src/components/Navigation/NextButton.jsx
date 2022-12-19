@@ -1,12 +1,10 @@
-
-import styles from "./styles.module.css"
+import NextButtonCSS from './NextButton.module.css'
 
 export const NextButton = ({nextStep}) => {
   return <button
-   className={styles.button
-  }
+    className={NextButtonCSS.NextButton}
   onClick={() => {nextStep()}}
 >
-  next step
+  Дальше
 </button>
 }

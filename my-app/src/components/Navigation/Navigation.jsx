@@ -1,12 +1,16 @@
 import { StepCount } from "./StepCount"
 import { NextButton } from "./NextButton"
-import { ToStartButton } from "./ToStartButton"
-
+import { IconButton } from "./IconButton"
+import NavigationCSS from "./Navigation.module.css"
 
 export const Navigation = ({step, nextStep, firstStep}) => {
-  return <div>
+  
+  const isLastStep = step === 1;
+  return <div
+    className={NavigationCSS.NavigationPanel}
+  >
     <StepCount step={step}/>
-    <NextButton nextStep={nextStep}/>
-    <ToStartButton firstStep={firstStep}/>
+    {isLastStep ? null : <NextButton nextStep={nextStep}/>}
+    {isLastStep ? <IconButton firstStep={firstStep} type={'reset'}/> : null}
   </div>
 }

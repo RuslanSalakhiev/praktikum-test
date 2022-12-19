@@ -1,5 +1,5 @@
 import { Content } from "./Content"
-export const Slideshow = ({median, sigma}) => {
+export const Slideshow = () => {
   return <div className="Slideshow">
     <Content />
   </div>

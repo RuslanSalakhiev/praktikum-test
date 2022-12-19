@@ -1,0 +1,22 @@
+.ResetButton {
+  padding:12px;
+  display:flex;
+  justify-content:center;
+  font-size:var(--typography-size-s-font-size);
+  line-height:var(--typography-size-s-line-height);
+  font-weight:var(--typography-size-s-font-weight);
+  background:var(--black-color);
+  border:none;
+  border-radius:50%;
+  outline:none;
+  cursor:default;
+  transform: scaleX(-1) rotate(270deg);
+  transition:cursor .15s ease-out,background-color .15s ease-out
+}
+
+.ResetButton :hover{
+  cursor:pointer;
+  background-color:var(--bright-blue-color);
+  transition:background-color .15s ease-out
+  }
+

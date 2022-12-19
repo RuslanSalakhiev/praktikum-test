@@ -1,59 +1,80 @@
-:root {
-  --typography-font-family: "YS Text","Helvetica",sans-serif;
-  --white-color: #fff;
-  --background-gray-color: #f7f6f3;
-  --light-gray-color: #dededc;
-  --light-green-color: #9dc18e;
-  --green-color: #20530f;
-  --blue-color: #98c7ff;
-  --dark-blue-color: #2a5189;
-  --yellow-color: #f5de68;
-  --pink-color: #fca5a5;
-  --red-color: #fa5c39;
-  --beige-color: #fdd1a1;
-  --brown-color: #76592d;
-  --black-color: #1a1b22;
-  --bright-blue-color: #005cff;
-  --dark-bright-blue-color: #004ed9;
-  --typography-size-s-font-size: 18px;
-  --typography-size-s-line-height: 22px;
-  --typography-size-s-font-weight: 400;
-  --typography-size-m-font-size: 21px;
-  --typography-size-m-line-height: 27px;
-  --typography-size-m-font-weight: 500;
-  --typography-size-l-font-size: 28px;
-  --typography-size-l-line-height: 32px;
-  --typography-size-l-font-weight: 500;
-  --typography-size-xl-font-size: 60px;
-  --typography-size-xl-line-height: 60px;
-  --typography-size-xl-font-weight: 500;
-  --border-radius: 8px;
-  --line-width: 1.5px;
-  --shell-width: 764px;
-  --shell-height-2-1: 382px;
-  --shell-height-3-2: 510px;
-  --shell-height-4-3: 573px;
-  --shell-height-1-1: 764px;
-  --shell-border: 1px solid rgba(209,210,214,0.5);
-  --shell-border-radius: 16px;
-  -webkit-font-smoothing: antialiased;
+:root{
+  --typography-font-family:"YS Text","Helvetica",sans-serif;
+  --white-color:#fff;
+  --background-gray-color:#f7f6f3;
+  --light-gray-color:#dededc;
+  --light-green-color:#9dc18e;
+  --green-color:#20530f;
+  --blue-color:#98c7ff;
+  --dark-blue-color:#2a5189;
+  --yellow-color:#f5de68;
+  --pink-color:#fca5a5;
+  --red-color:#fa5c39;
+  --beige-color:#fdd1a1;
+  --brown-color:#76592d;
+  --black-color:#1a1b22;
+  --bright-blue-color:#005cff;
+  --dark-bright-blue-color:#004ed9;
+  --typography-size-s-font-size:18px;
+  --typography-size-s-line-height:22px;
+  --typography-size-s-font-weight:400;
+  --typography-size-m-font-size:21px;
+  --typography-size-m-line-height:27px;
+  --typography-size-m-font-weight:500;
+  --typography-size-l-font-size:28px;
+  --typography-size-l-line-height:32px;
+  --typography-size-l-font-weight:500;
+  --typography-size-xl-font-size:60px;
+  --typography-size-xl-line-height:60px;
+  --typography-size-xl-font-weight:500;
+  --border-radius:8px;
+  --line-width:1.5px;
+  --shell-width:764px;
+  --shell-height-2-1:382px;
+  --shell-height-3-2:510px;
+  --shell-height-4-3:573px;
+  --shell-height-1-1:764px;
+  --shell-border:1px solid rgba(209,210,214,0.5);
+  --shell-border-radius:16px
+}
+@font-face{
+  font-family:YS Text;
+  font-weight:300;
+  font-style:normal;
+  font-stretch:normal;
+  src: local("YS Text-Light"), url("./fonts/YS Text/YS Text-Light.ttf") format("truetype");
+}
+@font-face{
+  font-family:YS Text;
+  font-weight:400;
+  font-style:normal;
+  font-stretch:normal;
+  src: local("YS Text-Regular"), url("./fonts/YS Text/YS Text-Regular.ttf") format("truetype");
 }
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+body{
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  min-height:100vh;
+  font-family:var(--typography-font-family);
+  font-weight:var(--typography-font-weight);
+  -webkit-font-smoothing:antialiased
+}
+.katex{
+  font-size:1em!important
+}
+.katex-display{
+  margin:0!important
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 .Slideshow {
+  --typography-font-weight: 400;
   font-family: var(--typography-font-family);
   font-weight: var(--typography-font-weight);
   display: flex;

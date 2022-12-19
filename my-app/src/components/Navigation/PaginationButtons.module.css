@@ -1,0 +1,27 @@
+.PaginationButtons {
+  display:flex;
+  height:50px;
+  margin-top: 20px;
+
+}
+
+.PaginationButton {
+  display:flex;
+  justify-content:center;
+  padding:13px 13px;
+  font-size:var(--typography-size-s-font-size);
+  line-height:var(--typography-size-s-line-height);
+  font-weight:var(--typography-size-s-font-weight);
+  color:var(--white-color);
+  background-color:var(--black-color);
+  border:0;
+  outline:none;
+  cursor:default;
+  transition:cursor .15s ease-out,background-color .15s ease-out
+}
+
+.PaginationButton:hover{
+  cursor:pointer;
+  background-color:var(--bright-blue-color);
+  transition:background-color .15s ease-out
+}
