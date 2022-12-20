@@ -8,7 +8,6 @@ export const Tree = ({value, cx, cy, r, step, chartX, chartY, index,}) => {
   const isSecondStep = step === 1;
   const animate = isSecondStep ? 'histogram' : 'grid';
   const color = getColor(value);
-
   const variants = {
     grid: {
         x:0,

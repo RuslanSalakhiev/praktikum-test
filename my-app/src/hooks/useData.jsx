@@ -8,7 +8,6 @@ export function useData(initialValue) {
     () => {
       const genData = generateData(DISTRIBUTION.count);
       addBins(genData)
-    
       setData(genData)}, 
     []);
   

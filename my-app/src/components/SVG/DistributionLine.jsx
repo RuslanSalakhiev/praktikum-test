@@ -9,7 +9,7 @@ export const DistributionLine = () => {
       pathLength: 1,
       transition: {
         pathLength: { type: "spring", duration: 2 },
-        delay: 0.5
+        delay: 0.
       }
     }
   
@@ -19,7 +19,7 @@ export const DistributionLine = () => {
     d="M0 241C175.128 241 209.153 1 297.947 1 386.741 1 403.846 241 600 241"
     stroke="#000"
     fill = "none"
-    transform="translate(45,105)"
+    transform="translate(45,83)"
     variants = {variants}
     initial="initial"
     animate= "animate"

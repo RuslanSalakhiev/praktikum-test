@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
+import { SVGParams } from "../../utils"
 
-export const Axis = ({}) => {
+export const Axis = () => {
 
 const variants = {
   initial: {
@@ -18,17 +19,17 @@ const variants = {
 }
 
   return <g>
-    <text x="35" y="378" stroke="grey">120</text>
+    <text x="35" y="358" >120</text>
     <motion.line 
       x1="45" 
-      y1="360"  
-      y2="360" 
-      stroke="grey" 
+      y1={SVGParams.height - 42}
+      y2={SVGParams.height - 42}
+      stroke="#000" 
       strokeWidth={1}
       variants = {variants}
       initial="initial"
       animate= "animate"
     />
-    <text x="630" y="378" stroke="grey">180</text>
+    <text x="630" y="358" >180</text>
   </g>
 }

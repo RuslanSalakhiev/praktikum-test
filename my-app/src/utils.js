@@ -20,30 +20,28 @@ const colorMax = "#269624";
 const colorAlpha = 1;
 
 
-
-const SVGParams = {
+export const SVGParams = {
   width: 700,
-  height: 400,
+  height: 380,
   smallSide: 6,
   fullSide: 24,
   distanceGrid: 13,
   columnDistanceChart: 10,
   treeDistanceChart: 10,
   r: 5,
-
 }
 
 
 // TreeGroup Parameters
 export const TREEGROUP = {
-  width: 700,
-  height: 400,
-  smallSide: 6,
-  fullSide: 24,
-  distanceGrid: 13,
-  columnDistanceChart: 10,
-  treeDistanceChart: 10,
-  r: 5,
+  width: SVGParams.width,
+  height: SVGParams.height,
+  smallSide: SVGParams.smallSide,
+  fullSide: SVGParams.fullSide,
+  distanceGrid: SVGParams.distanceGrid,
+  columnDistanceChart: SVGParams.columnDistanceChart,
+  treeDistanceChart: SVGParams.treeDistanceChart,
+  r: SVGParams.r,
   gridMarginSide: (SVGParams.width - (SVGParams.fullSide +3) * SVGParams.r  * 2 - SVGParams.distanceGrid * (SVGParams.fullSide / SVGParams.smallSide +1))/2,
   gridMarginBottom: 10,
   chartMarginSide: 40,
@@ -62,22 +60,29 @@ export function getColor(value){
   return colorScale.getColor(value).toHexString()
 }
 
-function gaussianRandom(mean, stdev) {
+function gaussianRandom(mean, stdev, min, max) {
   let u = 1 - Math.random(); 
   let v = Math.random();
   let z = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
-  return z * stdev + mean;
+  
+  const result = z * stdev + mean;
+  return result < min 
+    ? min 
+    : result > max 
+      ? max 
+      : result
+  ;
 }
 
 export function getRandomValue(){
-  return gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev)
+  return gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev, DISTRIBUTION.min, DISTRIBUTION.max)
 }
 
 export function generateData(countData) {
   const result = [];
   for (let  i = 0; i < countData; i++){
 
-    const value = gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev);
+    const value = gaussianRandom(DISTRIBUTION.mean, DISTRIBUTION.stdev, DISTRIBUTION.min, DISTRIBUTION.max);
     
     result.push(
         new TreeObject(
@@ -116,8 +121,9 @@ function TreeObject(elemIndex, value, color, distance,r) {
 
 
 
-function getCoordinatesShift(axis, startCoord, endCoord, height = null, margin){
-  return axis === 'x' ?  endCoord - startCoord : height - endCoord - startCoord - margin;
+function getCoordinatesShift(axis, startCoord, endCoord, height = 0, margin = 0){
+  // return 100
+  return axis === 'x' ?  parseFloat(endCoord) - parseFloat(startCoord) :  parseFloat(height) -  parseFloat(endCoord) -  parseFloat(startCoord) -  parseFloat(margin);
 }
 
 export function addBins(data) {
@@ -133,18 +139,23 @@ export function addBins(data) {
     const value = element.value;
     const initX = element.initX;
     const initY = element.initY;
-
+     
     let binIndex, elemIndex
-    bins.forEach((bin, i) => {
+    bins.forEach((bin, BinInd) => {
+      
       const foundIndex = bin.indexOf(value);
+      // console.log(element.value, bin, BinInd, foundIndex)
       if (foundIndex === -1) return
-      binIndex = i + 1;
+      binIndex = BinInd + 1;
       elemIndex = foundIndex; 
       
    });
    
-   data[i].chartX = getCoordinatesShift('x',initX, binIndex * TREEGROUP.columnDistanceChart + TREEGROUP.chartMarginSide ,TREEGROUP.height, TREEGROUP.chartMarginSide) ;
-   data[i].chartY = getCoordinatesShift('y',initY, elemIndex * TREEGROUP.treeDistanceChart, TREEGROUP.height, TREEGROUP.chartMarginBottom) ;
+   if (isNaN(parseInt(binIndex) * TREEGROUP.columnDistanceChart + TREEGROUP.chartMarginSide))  {
+    console.log(i, parseInt(binIndex), elemIndex, bins, element)
+   } 
+   data[i].chartX = getCoordinatesShift('x',initX, parseInt(binIndex) * TREEGROUP.columnDistanceChart + TREEGROUP.chartMarginSide ,TREEGROUP.height, TREEGROUP.chartMarginSide) ;
+   data[i].chartY = getCoordinatesShift('y',initY, parseInt(elemIndex) * TREEGROUP.treeDistanceChart, TREEGROUP.height, TREEGROUP.chartMarginBottom) ;
 
 
    // заполнить данные 
