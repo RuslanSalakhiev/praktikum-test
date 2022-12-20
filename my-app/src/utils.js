@@ -1,5 +1,4 @@
 import {bin} from 'd3-array';
-import { distance } from 'framer-motion';
 
 const ColorScale = require("color-scales");
 
@@ -16,8 +15,8 @@ export const DISTRIBUTION = {
 // Color settings
 const colorMinValue = DISTRIBUTION.min;
 const colorMaxValue = DISTRIBUTION.max;
-const colorMin = "#D9FFC9";//"#CAFF90";
-const colorMax = "#269624";//"#345511";
+const colorMin = "#D9FFC9";
+const colorMax = "#269624";
 const colorAlpha = 1;
 
 
@@ -94,7 +93,6 @@ export function generateData(countData) {
 
 function getGridX(elemIndex, distance, smallSideLength, fullSideLength, margin){
   const shift = parseInt(elemIndex/smallSideLength) % (fullSideLength / smallSideLength);
-  console.log(((elemIndex % fullSideLength + shift)) * distance + margin, elemIndex, distance, smallSideLength, fullSideLength, margin)
   return ((elemIndex % fullSideLength + shift)) * distance + margin;
 }
 

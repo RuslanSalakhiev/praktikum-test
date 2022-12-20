@@ -11,7 +11,7 @@ const variants = {
     x2:"650",
     pathLength: 1,
     transition: {
-      pathLength: { type: "spring", duration: 1 }
+      pathLength: { type: "spring", duration: 2 },
     }
   }
 

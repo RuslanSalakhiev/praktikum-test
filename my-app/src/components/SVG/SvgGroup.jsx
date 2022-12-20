@@ -1,8 +1,10 @@
-import { Tree } from "./Tree";
 import { generateData, DISTRIBUTION, addBins, TREEGROUP} from "../../utils";
 import { useEffect, useState } from "react";
 
+import { Tree } from "./Tree";
 import {Axis} from './Axis'
+import { DistributionLine } from "./DistributionLine";
+
 
 export const SvgGroup = ({step}) => {
 
@@ -41,6 +43,9 @@ export const SvgGroup = ({step}) => {
 
     </g>
     {isSecondStep ? <Axis/> : null }
+    {isSecondStep ? <DistributionLine/> : null }
+    
+    
   )
   </svg>
 }

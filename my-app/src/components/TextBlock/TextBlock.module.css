@@ -1,8 +1,7 @@
 .TextBlock {
-  height: 50px;
+  height: 55px;
   font-size: 18px;
-  margin: 2px -1px 0 8px;
-  line-height: 23px;
+  line-height: 24px;
 }
 
 .fadeIn {
