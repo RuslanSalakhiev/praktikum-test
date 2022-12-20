@@ -26,7 +26,7 @@ export const TextBlock = ({step,generateDatasource}) => {
   
   const texts = [
     `В саду 576 яблонь разной урожайности - от 120 до 180 яблок`,
-    `Они распределяются нормально`
+    `На шкале урожайности они образуют нормальное распределение`
   ]
 
   const isFirstStep = step === 0;
