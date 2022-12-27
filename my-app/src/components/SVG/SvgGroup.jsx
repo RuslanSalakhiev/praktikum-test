@@ -1,10 +1,9 @@
 import { TREEGROUP} from "../../utils";
-import { useEffect } from "react";
 
 import { Tree } from "./Tree";
-import {Axis} from './Axis'
+import { Axis } from './Axis'
 import { DistributionLine } from "./DistributionLine";
-import { useData } from "../../hooks/useData";
+
 import { useRef } from "react";
 
 export const SvgGroup = ({step, data}) => {
