@@ -1,3 +1,13 @@
 .Slideshow {
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px;
+  width: var(--shell-width);
+  background: #fff;
+  border: var(--shell-border);
+  box-sizing: border-box;
+  overflow: hidden;
+  height: var(--shell-height-4-3);
+  border-radius: var(--shell-border-radius);
 }

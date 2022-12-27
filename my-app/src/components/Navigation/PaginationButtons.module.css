@@ -8,10 +8,8 @@
 .PaginationButton {
   display:flex;
   justify-content:center;
+  align-items: center;
   padding:13px 13px;
-  font-size:var(--typography-size-s-font-size);
-  line-height:var(--typography-size-s-line-height);
-  font-weight:var(--typography-size-s-font-weight);
   color:var(--white-color);
   background-color:var(--black-color);
   border:0;

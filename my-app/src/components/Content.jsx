@@ -1,6 +1,7 @@
 import { TextBlock } from "./TextBlock/TextBlock"
 import { Graphics } from "./Graphics"
 import { Navigation } from "./Navigation/Navigation"
+import ContentCSS from "./Content.module.css"
 
 import { useStep } from "../hooks/useStep";
 import { useEffect } from "react";
@@ -19,17 +20,20 @@ export const Content = () => {
   }, []);
   
 
-  return data.length === 0 ? <div>Loading</div> : <div className="Content">
-    <TextBlock 
-      generateDatasource={generateDatasource}
-      step={step} 
-      />
-    <Graphics 
-      step={step} 
-      nextStep={nextStep} 
-      firstStep={firstStep}
-      data={data}
-    /> 
+  return data.length === 0 ? <div>Loading</div> : <div className={ContentCSS.Content}>
+    <div className={ContentCSS.MainContent}>
+      <TextBlock 
+        generateDatasource={generateDatasource}
+        step={step} 
+        />
+      <Graphics 
+        step={step} 
+        nextStep={nextStep} 
+        firstStep={firstStep}
+        data={data}
+      /> 
+    </div>
+    
     <Navigation 
       step={step} 
       nextStep={nextStep} 

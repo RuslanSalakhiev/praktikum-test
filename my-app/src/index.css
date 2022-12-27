@@ -65,27 +65,5 @@ body{
   font-weight:var(--typography-font-weight);
   -webkit-font-smoothing:antialiased
 }
-.katex{
-  font-size:1em!important
-}
-.katex-display{
-  margin:0!important
-}
 
 
-.Slideshow {
-  --typography-font-weight: 400;
-  font-family: var(--typography-font-family);
-  font-weight: var(--typography-font-weight);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 32px;
-  width: var(--shell-width);
-  background: #fff;
-  border: var(--shell-border);
-  box-sizing: border-box;
-  overflow: hidden;
-  height: var(--shell-height-4-3);
-  border-radius: var(--border-radius);
-}

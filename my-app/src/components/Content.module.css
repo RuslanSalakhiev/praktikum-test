@@ -1,0 +1,9 @@
+.Content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.MainContent {
+  height: 100%;
+}
